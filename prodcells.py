@@ -17,30 +17,23 @@ from scipy.linalg.interpolative import estimate_rank
 class PCELL():
     LABEL_NAME = 'label'
     G = None
-# =============================================================================
-# Initializes the prodsimplicial cell
-# =============================================================================
+
     def __init__(self, G=None):
         self.set_graph(G)
 
-# =============================================================================
-# Initializes the underlying DiGraph. Note that cell.G can access nx methods.
-# =============================================================================
+# Note that cell.G can access nx methods.
     def set_graph(self, G):
         self.G = nx.DiGraph(G)
         
-# =============================================================================
-# Plots the graph, optional input with_labels adds labels to edges    
-# =============================================================================
-    def draw(self, with_labels=False, **kwargs):
-        fig, G = self.draw_directed_graph(self.G, with_labels, **kwargs)
+    def draw(self, **kwargs):
+        fig, G = self.draw_directed_graph(self.G, **kwargs)
         return fig, G
 
 # =============================================================================
 # Class method function to plot graphs        
 # =============================================================================
     @classmethod
-    def draw_directed_graph(cls, G, with_labels=False, **kwargs):
+    def draw_directed_graph(cls, G, **kwargs):
         # kwargs.setdefault('layer_by','layer')
         # kwargs.setdefault('node_color','#0081D7' )
         # kwargs.setdefault('angle', 10)
@@ -64,7 +57,6 @@ class PCELL():
         if 'node_size' in kwargs:
             nsize = kwargs['node_size']    
         
-
         if layer_by == 'length':
             root_len = int(max([len(n.split(','))/2 for n in nodes]))
             for n in nodes:
@@ -88,17 +80,11 @@ class PCELL():
                     done = True
             num_layers = max([x for (x,y) in layer_pairs])
             max_layer = max([y for (x,y) in layer_pairs])
-            nodes = sorted(nodes.items(), key=lambda x:x[1][layer_by])
-            # Workaround for compatibility issue in networkx 2.7
-            # Add vertices in the order that the layers are in
-            H = nx.DiGraph()
-            H.add_nodes_from(nodes)
-            H.add_edges_from(G.edges())
             # Estimate size of figure with length of word and number of layers
-            plt.figure(figsize=(2*max_layer + 0.2*wordlen, 1.5*num_layers))
-            pos = nx.multipartite_layout(H, subset_key=layer_by, 
+            plt.figure(figsize=(2*max_layer + 0.2*wordlen, 2*num_layers))
+            pos = nx.multipartite_layout(G, subset_key=layer_by, 
                                          align = 'horizontal', scale=2)
-            
+                        
         except KeyError:
             pos = nx.spring_layout(G)
         
@@ -107,28 +93,37 @@ class PCELL():
         y_off = -0.1  # offset on the y axis
         if num_layers < 5:
             y_off -= 0.05
+        
         for k, v in pos.items():
             pos_higher[k] = (v[0], v[1]+y_off)
         
-        nx.draw_networkx_nodes(H, pos, node_color=color, alpha =0.7, node_size=nsize)
-        nx.draw_networkx_edges(H, pos_higher, arrowstyle='->', arrowsize=10, 
-                               node_size=900, width=2,edge_color="black", alpha = 0.7)
+        pos_lower = {}
+        y_off = -0.1  # offset on the y axis
+        if num_layers < 5:
+            y_off -= 0.05
+        
+        for k, v in pos.items():
+            pos_lower[k] = (v[0], v[1]+y_off)
+        
+        nx.draw_networkx_nodes(G, pos, node_color='#0081D7', alpha =0.7, node_size=60)
+        nx.draw_networkx_edges(G, pos_higher, arrowstyle='->', arrowsize=10, node_size=900,
+                               edge_cmap=plt.cm.Blues, width=2,edge_color="black", alpha = 0.7)
     
         node_labels=dict()
         
         # Labels the vertices
-        for node in H.nodes():
-            node_labels[node]=str(node)
-        text = nx.draw_networkx_labels(H, pos_higher, node_labels, font_size=10)
+        for node in G.nodes():
+            nodelbl = str(node)
+            if nodelbl == '':
+                nodelbl = '$\epsilon$'
+            node_labels[node]=nodelbl
+        text = nx.draw_networkx_labels(G, pos_higher, node_labels, font_size=10)
         
-        max_node_len = max([len(str(x)) for x in H.nodes()])
+        max_node_len = max([len(str(x)) for x in G.nodes()])
+        
         # Rotate node labels so they don't overlap
         for _,t in text.items():
             t.set_rotation(angle)
-        # Labels the edges
-        if with_labels:
-            edge_labels = nx.get_edge_attributes(H, cls.LABEL_NAME)
-            nx.draw_networkx_edge_labels(H, pos, labels = edge_labels)
     
         ax = plt.gca()
         ax.invert_yaxis()
@@ -137,7 +132,7 @@ class PCELL():
         plt.show()
         fig = plt.gcf()
         
-        return fig, H
+        return fig, G
 
 # =============================================================================
 # Change the layer a node is in and returns G
@@ -216,6 +211,7 @@ class PCELL():
                 if p not in used_vertices:
                     used_vertices[p] = list()
                 W = self.generate_w(p)
+                
                 # igraph version of W
                 iW = ig.Graph.from_networkx(W)
                 isomorphisms = iG.get_subisomorphisms_lad(iW, induced=True)
@@ -229,8 +225,8 @@ class PCELL():
                     
                     # Standard source node
                     st_sc_node = min(list(isom_map.keys()))
-                    # Neighbors of source in standard cell, in descending order.
                     
+                    # Neighbors of source in standard cell, in descending order.                    
                     st_sc_nbrs = sorted(list(W.neighbors(st_sc_node)))
                     st_sc_nbrs.reverse()
                     
@@ -248,7 +244,6 @@ class PCELL():
                     
                     if set(subg_nodes)not in used_vertices[p]:
                         used_vertices[p].append(set(subg_nodes))
-                        # if tr_perm.is_even():
                         if tr_perm.parity() == 0:
                             orientation = 1
                         else:
@@ -262,6 +257,7 @@ class PCELL():
                     
             ret = sorted(tmp, key=lambda d: d['vertices'])                  
             return ret
+
 # =============================================================================
 # Creates the dictionary of bdry_el:a of a standard cell generated by p
 # =============================================================================
@@ -283,6 +279,7 @@ class PCELL():
                     nbunch.remove(str(i))
                     bd = Sn.subgraph(nbunch)
                     Wbd = nx.DiGraph()
+                    
                     # Sets the "prefix" factor
                     if m==0:
                         Wbd=bd
@@ -310,7 +307,7 @@ class PCELL():
         bd_els = self.boundary_els(p)
         ret = list()
         
-        # for each face in the standard boundary set, map to the graph
+        # For each face in the standard boundary set, map to the graph
         for elem in bd_els:
             new_isom = dict()
             nodes = elem["bdry_el"].nodes()
