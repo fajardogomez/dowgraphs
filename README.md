@@ -2,7 +2,7 @@
 Draw graphs of double occurrence words and compute their Betti numbers. 
 
 ## Math Background
-More detailed explanation available in [arxiv](https://arxiv.org/abs/2305.05818.
+More detailed explanation available in [arxiv](https://arxiv.org/abs/2305.05818).
 ### Double Occurrence Words (DOWs)
 Double occurrence words (DOWs) are sequences of symbols from an alphabet such that every symbol from an ordered alphabet $\Sigma$ appears exactly zero or two times. We denote the set of all double occurrence words on $\Sigma$ by $\Sigma_{DOW}$. Similarly, we define single occurrence words (SOWs) and $\Sigma_{SOW}$. The set of symbols in a DOW $w$ is denoted by $\Sigma[w]$. A DOW $w$ is in _ascending order_ if symbols are labeled according to their order of appearance. We say two DOWs are _equivalent_ if they can be written as the same word in ascending order via symbol-to-symbol bijections. The _reverse_ of a word $w = a_1 a_2 \ldots a_{n-1} a_n$ where $a_i \in \Sigma$ is the word $w^R$ obtained by writing its symbols in reverse order: $w^R = a_n a_{n-1} \ldots a_2 a_1$. 
 
