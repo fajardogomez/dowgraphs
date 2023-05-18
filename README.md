@@ -11,13 +11,43 @@ In all examples, we use $\Sigma = \mathbb{N}^*$, $\epsilon$ to denote the empty 
 Let $x,y,z \in \Sigma^*$ and $u \in (\Sigma \setminus \Sigma[w])_{SOW}$. We say the word $uu$ is a _repeat word_ in $w = xuyuz$ and the word $xyz$ is obtained from $w$ by a _repeat deletion_ denoted $d_u(w) = xyz$. Similarly, the word $uu^R$ is a _return word_ in $ w = xuy u^Rz$ and the word $xyz$ is obtained from $w$ by a _return deletion_, also denoted $d_u(w) = xyz$. Repeat or return words, $uu$ or $uu^R$, where $u$ consists of a single symbol are called _trivial_. Repeat or return words are said to be _maximal_ if they are not contained in longer repeat or return words.
 
 ### Word Graphs
-We denote the edges of a directed graph $u \rightarrow v$ as $[u,v]$. A _word graph rooted at_ $w$ is a graph whose set of vertices is a collection of ascending order words equivalent to those obtained through iterated deletions of maximal repeat or return words from $w$. If we let $w= 1234152345$, it has maximal repeat and return words $11,2323,$ and $4554$. Deleting them yields $d_{1}(w) = 23452354\sim 12341243$ $d_{23}(w) = 145541\sim 123321$, and $d_{45}(w) = 123231$, which creates the first set of edges out of $w$. Repeating this process with the resulting DOWs until $\epsilon$ is reached yields the graph
+The set $D(w) = \displaystyle\bigcup_{u \in M^{SOW}_w} \{v \ | \ v \text{ is in ascending order and }v \sim d_u(w)\}$ is called the _set of immediate successors of_ $w$. If there exists a sequence of words $w=w_1, w_2, \ldots, w_n = w'$ such that $w_i\sim d_{u_{i}}(w_{i-1})$ for some choice of $u_i \in M^{SOW}_{w_i}$, we call $w'$ a _successor_ of $w$. Note that the empty word $\epsilon$ is a successor of all words.
+
+The _global word graph_ $G_n=(V,E)$ _of double occurrence words of size $n$_ is the graph defined by:
+
+* $V(G_n)=\Sigma_{DOW}^{\leq n}/_\sim$;
+* $E(G_n) = \bigcup_{w\in V} E_w$, where $E_w = \{[w,v
+]\ | v \in D(w)\}$. 
+
+We denote the edges of a directed graph $u \rightarrow v$ as $[u,v]$. For a vertex $w$ in $G_n$, we define the _word graph rooted at $w$_, denoted $G_w$, as the induced subgraph of the global word graph containing as vertices $w$ and all of its successors. 
+
+If we let $w= 1234152345$, it has maximal repeat and return words $11,2323,$ and $4554$. Deleting them yields $d_{1}(w) = 23452354\sim 12341243$ $d_{23}(w) = 145541\sim 123321$, and $d_{45}(w) = 123231$, creating the first set of edges out of $w$. Repeating this process with the resulting DOWs until $\epsilon$ is reached yields the graph
 
 <p align="center">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/fajardogomez/dowgraphs/assets/109635630/328a44f7-ca70-4052-b9e7-a130337b19fc" width=50%>
   <source media="(prefers-color-scheme: light)" srcset="https://github.com/fajardogomez/dowgraphs/assets/109635630/9cc213a5-9eae-4d16-a0e8-ae466f10db94" width=50%>
-  <img alt="Shows an illustrated sun in light mode and a moon with stars in dark mode." src="https://github.com/fajardogomez/dowgraphs/assets/109635630/9cc213a5-9eae-4d16-a0e8-ae466f10db94">
+  <img alt="Word graph rooted at 1234152345." src="https://github.com/fajardogomez/dowgraphs/assets/109635630/9cc213a5-9eae-4d16-a0e8-ae466f10db94">
 </picture>
 </p>
 
+### Prodsimplicial Cells
+The _$n$-dimensional simplicial digraph_, denoted by $\Delta^n$, is the cell whose 1-skeleton is the digraph with vertices $V(\Delta^n) = \{v_0, v_1, \ldots, v_n\}$ and edges $E(\Delta^n) = \{[v_i,v_j] \ | \ 0 \leq i < j \leq n\}$. 
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/fajardogomez/dowgraphs/assets/109635630/bb2613dd-3ac0-4f68-8e90-70f2db48a2b4" width=50%>
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/fajardogomez/dowgraphs/assets/109635630/a91cf798-dde4-427c-ac3d-e634d83637e2" width=50%>
+  <img alt="Simplices in dimensions 0, 1, and 2." src="https://github.com/fajardogomez/dowgraphs/assets/109635630/a91cf798-dde4-427c-ac3d-e634d83637e24">
+</picture>
+</p>
+
+An _$N$-dimensional prodsimplicial cell_ $P$ is the $N$-cell that is a product of simplices $\displaystyle\prod_{i=1}^k \Delta_i^{n_i} = \Delta_1^{n_1} \times \cdots \times \Delta_k^{n_k}$ where $n_i>0$ for all $1\leq i \leq k$ and $N= \displaystyle\sum_{i=1}^kn_i$. Its 1-skeleton is the [Cartesian product](https://en.wikipedia.org/wiki/Cartesian_product_of_graphs) of simplicial digraphs. That is, a graph of the form $\Delta_1^{n_1} \square \cdots \square \Delta_k^{n_k}$. We abuse the notation and identify a prodsimplicial cell $P$ with the Cartesian product of simplicial digraphs.
+
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/fajardogomez/dowgraphs/assets/109635630/819c8756-a97d-4f3d-aba3-d11759327ff8" width=50%>
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/fajardogomez/dowgraphs/assets/109635630/0a5b00cb-f9e0-4312-9285-f545910b7670" width=50%>
+  <img alt="All 3 dimensional simplices." src="https://github.com/fajardogomez/dowgraphs/assets/109635630/0a5b00cb-f9e0-4312-9285-f545910b7670">
+</picture>
+
+</p>
