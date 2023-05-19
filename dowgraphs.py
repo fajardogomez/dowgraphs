@@ -99,7 +99,7 @@ def redraw_dow():
     wordgraph.change_layer(vchoice, nlayer)
     with col1:
         fig, G = wordgraph.draw(node_color=ncolor,node_size=nsize, angle=langle,
-                                layer_by=layer_choice) 
+                                layer_by=layer_choice, mode=md) 
         st.pyplot(fig, dpi=300)
         filename = dow + ".png" 
         
@@ -119,7 +119,7 @@ def draw_dow():
         st.pyplot(fig, dpi=300)
         filename = dow + ".png" 
         
-        fig.savefig(filename, transparent=True, dpi=300, bbox_inches='tight',pad_inches=0)
+        fig.savefig(filename, transparent=True, dpi=300, bbox_inches='tight',pad_inches=0, facecolor=face)
         with open(filename, "rb") as file:
              btn = st.download_button(
                      label="Download image",
@@ -155,10 +155,8 @@ with col1:
         st.pyplot(fig, dpi=300)
         filename = dow + ".png" 
         
-        #fig.savefig(filename, transparent=True, dpi=300, bbox_inches='tight',pad_inches=0)
-        buf = BytesIO()
-        fig.savefig(buf, format="png")
-        st.image(buf)
+        fig.savefig(filename, transparent=True, dpi=300, bbox_inches='tight',pad_inches=0, facecolor=face)
+        
         with open(filename, "rb") as file:
              btn = st.download_button(
                      label="Download image",
