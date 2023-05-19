@@ -172,6 +172,17 @@ class DOW():
         # remove loops
         return DOW(','.join([x for x in self.sym_list if x not in loops]))
 
+    def separation(self):
+        """Computes the total separation of a DOW"""
+        sep = 0
+        
+        size = len(self.order)
+        for i in range(size):
+            locs = list_duplicates_of(self.sym_list,self.order[i])
+            d = max(locs) - min(locs) - 1
+            sep += d
+        return sep
+    
     def find_patterns(self):
         """Returns the set of all maximal repeat or return words in a DOW"""
         # Turns the word into a list of letters
@@ -321,19 +332,6 @@ def list_duplicates_of(seq,item):
             locs.append(loc)
             start_at = loc
     return locs
-
-def separation(w):
-    """Computes the total separation of a DOW"""
-    sep = 0
-    word_list = w.split(',')
-    
-    l = len(word_list)
-    size = int(l/2)
-    for i in range(1,size+1):
-        locs = list_duplicates_of(word_list,str(i))
-        d = max(locs) - min(locs) - 1
-        sep += d
-    return sep
 
 def tangled(n):
     """Returns the tangled cord on n symbols."""
