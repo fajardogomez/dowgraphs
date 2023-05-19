@@ -6,6 +6,8 @@ from prodcells import *
 import matplotlib.pyplot as plt
 import networkx as nx
 
+from io import BytesIO
+
 st.title('Word Graphs')
 st.header('Plotting and computing some of their properties.')
 
