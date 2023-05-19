@@ -179,17 +179,17 @@ with col1:
         fig, G = wordgraph.draw(node_color=ncolor,node_size=nsize, angle=langle, mode=md,
                                 layer_by=layer_choice)        
 
-        st.pyplot(fig, dpi=300)
-        filename = dow + ".png" 
+        st.pyplot(fig)
+        filename = dow + ".svg" 
         
-        fig.savefig(filename, transparent=True, dpi=300, bbox_inches='tight',pad_inches=0, facecolor=face)
+        fig.savefig(filename, transparent=True, bbox_inches='tight',pad_inches=0, facecolor=face)
         
         with open(filename, "rb") as file:
              btn = st.download_button(
                      label="Download image",
                      data=file,
                      file_name=filename,
-                     mime="image/png"
+                     mime="image/svg"
                     )
 
 with col2:
