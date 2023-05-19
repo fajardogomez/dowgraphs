@@ -154,6 +154,7 @@ class PCELL():
         
         plt.show()
         fig = plt.gcf()
+        fig.patch.set_facecolor(face)
         
         return fig, G
 
