@@ -6,7 +6,34 @@ from prodcells import *
 import matplotlib.pyplot as plt
 import networkx as nx
 
-from io import BytesIO
+import base64
+from io import StringIO
+# Make PRETTY pictures
+def svg_write(fig, center=True):
+    """
+    Renders a matplotlib figure object to SVG and embedd it as base64.
+    Disable center to left-margin align like other objects.
+    Shamelessly taken from:
+    https://discuss.streamlit.io/t/display-svg/172
+    """
+    # Save to stringIO instead of file
+    imgdata = StringIO()
+    fig.savefig(imgdata, format="svg")
+
+    # Retrieve saved string
+    imgdata.seek(0)
+    svg_string = imgdata.getvalue()
+
+    # Encode as base 64
+    b64 = base64.b64encode(svg_string.encode("utf-8")).decode("utf-8")
+
+    # Add some CSS on top
+    css_justify = "center" if center else "left"
+    css = f'<p style="text-align:center; display: flex; justify-content: {css_justify};">'
+    html = f'{css}<img src="data:image/svg+xml;base64,{b64}"/>'
+
+    # Write the HTML
+    st.write(html, unsafe_allow_html=True)
 
 st.title('Word Graphs')
 st.header('Plotting and computing some of their properties.')
@@ -100,10 +127,10 @@ def redraw_dow():
     with col1:
         fig, G = wordgraph.draw(node_color=ncolor,node_size=nsize, angle=langle,
                                 layer_by=layer_choice, mode=md) 
-        st.pyplot(fig, dpi=300)
+        st.pyplot(fig, dpi=600)
         filename = dow + ".png" 
         
-        fig.savefig(filename, transparent=True, dpi=300, bbox_inches='tight',pad_inches=0, facecolor=face)
+        fig.savefig(filename, transparent=True, dpi=600, bbox_inches='tight',pad_inches=0, facecolor=face)
         with open(filename, "rb") as file:
              btn = st.download_button(
                      label="Download image",
@@ -116,10 +143,10 @@ def draw_dow():
     with col1:
         fig, G = wordgraph.draw(node_color=ncolor,node_size=nsize, angle=langle,
                                 layer_by=layer_choice, mode =md) 
-        st.pyplot(fig, dpi=300)
+        st.pyplot(fig, dpi=600)
         filename = dow + ".png" 
         
-        fig.savefig(filename, transparent=True, dpi=300, bbox_inches='tight',pad_inches=0, facecolor=face)
+        fig.savefig(filename, transparent=True, dpi=00, bbox_inches='tight',pad_inches=0, facecolor=face)
         with open(filename, "rb") as file:
              btn = st.download_button(
                      label="Download image",
