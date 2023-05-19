@@ -113,7 +113,7 @@ class PCELL():
         # Shift vertex labels up
         pos_higher = {}
         y_off = -0.1  # offset on the y axis
-        if num_layers < 5:
+        if num_layers != None and num_layers < 5:
             y_off -= 0.05
         
         for k, v in pos.items():
@@ -121,7 +121,7 @@ class PCELL():
         
         pos_lower = {}
         y_off = -0.1  # offset on the y axis
-        if num_layers < 5:
+        if num_layers != None and num_layers < 5:
             y_off -= 0.05
         
         for k, v in pos.items():
