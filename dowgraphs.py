@@ -70,7 +70,7 @@ draw_button = st.button("Draw word graph")
 ncolor = st.sidebar.color_picker('Pick a color for vertices', '#1C82BA')
 langle = st.sidebar.slider('Angle of rotation for vertex labels', min_value=0, max_value=360, value = 10)
 nsize = st.sidebar.number_input('Node size', min_value=0,value=60)
-md = st.sidebar.radio("Choose a theme", ('light','dark'))
+#md = st.sidebar.radio("Choose a theme", ('light','dark'))
 
 if md=='light':
     face='white'
@@ -115,7 +115,7 @@ def redraw_dow():
 def draw_dow():
     with col1:
         fig, G = wordgraph.draw(node_color=ncolor,node_size=nsize, angle=langle,
-                                layer_by=layer_choice, mode =md) 
+                                layer_by=layer_choice, mode ='light') 
         st.pyplot(fig, dpi=300)
         filename = dow + ".png" 
         
@@ -149,7 +149,7 @@ else:
 with col1:
     if draw_button:
         wordgraph = PCELL(word_graph(dow))        
-        fig, G = wordgraph.draw(node_color=ncolor,node_size=nsize, angle=langle, mode=md,
+        fig, G = wordgraph.draw(node_color=ncolor,node_size=nsize, angle=langle, mode='light',
                                 layer_by=layer_choice)        
 
         st.pyplot(fig, dpi=300)
