@@ -70,7 +70,7 @@ draw_button = st.button("Draw word graph")
 ncolor = st.sidebar.color_picker('Pick a color for vertices', '#1C82BA')
 langle = st.sidebar.slider('Angle of rotation for vertex labels', min_value=0, max_value=360, value = 10)
 nsize = st.sidebar.number_input('Node size', min_value=0,value=60)
-#md = st.sidebar.radio("Choose a theme", ('light','dark'))
+md = st.sidebar.radio("Choose a theme", ('light','dark'))
 
 if md=='light':
     face='white'
