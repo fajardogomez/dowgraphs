@@ -153,7 +153,10 @@ with col1:
         st.pyplot(fig, dpi=300)
         filename = dow + ".png" 
         
-        fig.savefig(filename, transparent=True, dpi=300, bbox_inches='tight',pad_inches=0)
+        #fig.savefig(filename, transparent=True, dpi=300, bbox_inches='tight',pad_inches=0)
+        buf = BytesIO()
+        fig.savefig(buf, format="png")
+        st.image(buf)
         with open(filename, "rb") as file:
              btn = st.download_button(
                      label="Download image",
