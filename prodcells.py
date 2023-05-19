@@ -147,9 +147,10 @@ class PCELL():
         for _,t in text.items():
             t.set_rotation(angle)
     
-        ax, fig = plt.subplots()
+        ax = plt.gca()
         ax.invert_yaxis()
         ax.set_axis_off()
+        ax,fig = plt.subplots()
         ax.set_facecolor(face)
 
         plt.show()
