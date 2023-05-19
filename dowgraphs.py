@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Jun 29 21:57:11 2022
-
-@author: lina_
-"""
-
 import streamlit as st
 from dow import *
 from wordgraph import *
