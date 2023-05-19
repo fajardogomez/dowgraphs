@@ -60,7 +60,7 @@ class PCELL():
             face = 'white'
         elif mode=='dark':
             mdcolor = 'white'
-            face = '0E1117'
+            face = '#0E1117'
         nodes = dict(G.nodes(data=True))
         if len(nodes) == 0:
             layer_by = 'length'
