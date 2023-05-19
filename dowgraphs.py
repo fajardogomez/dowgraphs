@@ -70,6 +70,11 @@ langle = st.sidebar.slider('Angle of rotation for vertex labels', min_value=0, m
 nsize = st.sidebar.number_input('Node size', min_value=0,value=60)
 md = st.sidebar.radio("Choose a theme", ('light','dark'))
 
+if md=='light':
+    face='white'
+else:
+    face='0E1117'
+
 vlayer_md = 'Graphs use a multipartite graph layout with layers indicating ' + 'the deletion steps. The original DOW is placed on layer 1 ' +'by default and each deletion increases the counter by one.'
 st.sidebar.markdown('Change vertex layout.')
 
@@ -96,7 +101,7 @@ def redraw_dow():
         st.pyplot(fig, dpi=300)
         filename = dow + ".png" 
         
-        fig.savefig(filename, transparent=True, dpi=300, bbox_inches='tight',pad_inches=0)
+        fig.savefig(filename, transparent=True, dpi=300, bbox_inches='tight',pad_inches=0, facecolor=face)
         with open(filename, "rb") as file:
              btn = st.download_button(
                      label="Download image",
