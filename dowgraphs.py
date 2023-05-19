@@ -127,32 +127,32 @@ def redraw_dow():
     with col1:
         fig, G = wordgraph.draw(node_color=ncolor,node_size=nsize, angle=langle,
                                 layer_by=layer_choice, mode=md) 
-        st.pyplot(fig, dpi=600)
-        filename = dow + ".png" 
+        st.pyplot(fig)
+        filename = dow + ".svg" 
         
-        fig.savefig(filename, transparent=True, dpi=600, bbox_inches='tight',pad_inches=0, facecolor=face)
+        fig.savefig(filename, transparent=True, bbox_inches='tight',pad_inches=0, facecolor=face)
         with open(filename, "rb") as file:
              btn = st.download_button(
                      label="Download image",
                      data=file,
                      file_name=filename,
-                     mime="image/png"
+                     mime="image/svg"
                     )
  
 def draw_dow():
     with col1:
         fig, G = wordgraph.draw(node_color=ncolor,node_size=nsize, angle=langle,
                                 layer_by=layer_choice, mode =md) 
-        st.pyplot(fig, dpi=600)
-        filename = dow + ".png" 
+        st.pyplot(fig)
+        filename = dow + ".svg" 
         
-        fig.savefig(filename, transparent=True, dpi=00, bbox_inches='tight',pad_inches=0, facecolor=face)
+        fig.savefig(filename, transparent=True, bbox_inches='tight',pad_inches=0, facecolor=face)
         with open(filename, "rb") as file:
              btn = st.download_button(
                      label="Download image",
                      data=file,
                      file_name=filename,
-                     mime="image/png"
+                     mime="image/svg"
                     )
 col1, col2 = st.columns([3,1])
 
