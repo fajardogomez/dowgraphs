@@ -150,7 +150,6 @@ class PCELL():
         ax = plt.gca()
         ax.invert_yaxis()
         ax.set_axis_off()
-        ax,fig = plt.subplots()
         ax.set_facecolor(face)
 
         plt.show()
