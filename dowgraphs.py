@@ -68,7 +68,7 @@ draw_button = st.button("Draw word graph")
 ncolor = st.sidebar.color_picker('Pick a color for vertices', '#1C82BA')
 langle = st.sidebar.slider('Angle of rotation for vertex labels', min_value=0, max_value=360, value = 10)
 nsize = st.sidebar.number_input('Node size', min_value=0,value=60)
-md = st.sidebar.radio("Choose a theme", ('light','dark))
+md = st.sidebar.radio("Choose a theme", ('light','dark'))
 
 vlayer_md = 'Graphs use a multipartite graph layout with layers indicating ' + 'the deletion steps. The original DOW is placed on layer 1 ' +'by default and each deletion increases the counter by one.'
 st.sidebar.markdown('Change vertex layout.')
