@@ -115,7 +115,7 @@ def redraw_dow():
 def draw_dow():
     with col1:
         fig, G = wordgraph.draw(node_color=ncolor,node_size=nsize, angle=langle,
-                                layer_by=layer_choice, mode ='light') 
+                                layer_by=layer_choice, mode =md) 
         st.pyplot(fig, dpi=300)
         filename = dow + ".png" 
         
@@ -149,7 +149,7 @@ else:
 with col1:
     if draw_button:
         wordgraph = PCELL(word_graph(dow))        
-        fig, G = wordgraph.draw(node_color=ncolor,node_size=nsize, angle=langle, mode='light',
+        fig, G = wordgraph.draw(node_color=ncolor,node_size=nsize, angle=langle, mode=md,
                                 layer_by=layer_choice)        
 
         st.pyplot(fig, dpi=300)
