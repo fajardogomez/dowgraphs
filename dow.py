@@ -29,7 +29,7 @@ class DOW():
         self.sym_list = self.W.split(',')
         self.order = order_chars(list(set(self.sym_list)))
         self.error_check()
-        self.update(asc_order = True, min_chars = True)        
+        self.update(asc_order = asc_order, min_chars = min_chars)        
         
     def update(self, asc_order = True, min_chars = True):
         """Update the attributes after relabeling/reordering."""
