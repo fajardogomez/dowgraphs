@@ -141,7 +141,7 @@ class DOW():
         else:
             return False        
     
-    def reduce(self, to_reduce):
+    def reduce(self, to_reduce, asc_order = True, min_chars = True):
         """
         Generate new DOWs by deleting the SOWs in the set to_reduce
 
@@ -159,7 +159,7 @@ class DOW():
         ret = set()
         for sow in to_reduce:
             ret.add(DOW(','.join([x for x in self.sym_list if x not in 
-                                  sow.split(',')]), asc_order=True))
+                                  sow.split(',')]), asc_order=asc_order, min_chars = min_chars))
         return ret
 
     def remove_loops(self):
