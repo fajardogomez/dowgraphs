@@ -2,7 +2,6 @@ import networkx as nx
 
 from dow import DOW
 from prodcells import PCELL
-
 def word_graph(word, asc_order = True, min_chars = True):
     """
     Creates the word graph rooted at word.
@@ -27,10 +26,9 @@ def word_graph(word, asc_order = True, min_chars = True):
     #loop_reduced_word = dow.remove_loops()
     ao_word = dow.W
     if ao_word != word:
-        print(word + ' is equivalent to '+ao_word+', which will be'
-              +' used for computations')
+        print(word + ' is equivalent to '+ao_word)
     graph = nx.DiGraph()
-    edges = edge_pairs(word)
+    edges = edge_pairs(word, asc_order, min_chars)
     node_dict = dict()
     if len(edges)>0:
         for edge in edges:
@@ -51,7 +49,7 @@ def word_graph(word, asc_order = True, min_chars = True):
     
     return graph
 
-def draw_dow(dow,mode='light',**kwargs):
+def draw_dow(dow,mode='light',asc_order = True, min_chars = True, **kwargs):
     """
     Draws a word graph for a given DOW (given as a str). 
 
@@ -79,7 +77,7 @@ def draw_dow(dow,mode='light',**kwargs):
     if 'layer_by' in kwargs:
         lb = kwargs['layer_by']
     l = int(len(dow.split(','))/2)
-    PCELL(word_graph(dow)).draw(mode=mode, filename=dow, wordlen = l, layer_by=lb)
+    PCELL(word_graph(dow, asc_order = asc_order, min_chars = min_chars)).draw(mode=mode, filename=dow, wordlen = l, layer_by=lb)
 
 def betti_nums(word):
     """
@@ -96,7 +94,7 @@ def betti_nums(word):
         i+=1
     return ret
 
-def add_layer(wordset, layernum):
+def add_layer(wordset, layernum, asc_order = True, min_chars = True):
     """
     Add one more layer of edges to the word graph
 
@@ -118,14 +116,14 @@ def add_layer(wordset, layernum):
     for word in wordset:
         if len(word.W)>0:
             to_red = word.find_patterns()
-            red = word.reduce(to_red)
+            red = word.reduce(to_red, asc_order = asc_order, min_chars = min_chars)
             for x in red:
                 word_add =(word, layernum)
                 x_add = (x, layernum+1)
                 ret.add((word_add,x_add))
     return ret
 
-def edge_pairs(word):
+def edge_pairs(word, asc_order = True, min_chars = True):
     """
     Returns the edges of the word graph.
 
@@ -142,7 +140,7 @@ def edge_pairs(word):
         maximal repeat or return word.
 
     """
-    dow = DOW(word)
+    dow = DOW(word, asc_order = asc_order, min_chars = min_chars)
     ret = set()
     layernum = 1
     wordset = {dow}
@@ -150,7 +148,7 @@ def edge_pairs(word):
     leaveslist = list()
     # Computes the words that the initial word can be reduced to, these are
     # all 1 edge away from the root. The layer is a set of pairs.
-    layer = add_layer(wordset, layernum)
+    layer = add_layer(wordset, layernum, asc_order = asc_order, min_chars = min_chars)
     ret.update(layer)
     layernum += 1
     for tup in layer:
@@ -160,7 +158,7 @@ def edge_pairs(word):
     # if it's not the last layer added compute more layers
     while len(leaveslist[-1]) > 0 and leaveslist[-1] !={''}:
         new_lvs = set()
-        new_lay = add_layer(leaves, layernum)
+        new_lay = add_layer(leaves, layernum, asc_order = asc_order, min_chars = min_chars)
         for tup in new_lay:
             new_lvs.add(tup[1][0])
         leaveslist.append(new_lvs)
