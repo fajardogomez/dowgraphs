@@ -236,7 +236,7 @@ class PCELL():
                 
                 # Check for duplicate graphs with different isomorphisms
                 for ism in isomorphisms:
-                    subg_nodes = [str(iG.vs[x]['_nx_name']) for x in ism]
+                    subg_nodes = [iG.vs[x]['_nx_name'] for x in ism]
                     W_nodes = [iW.vs[x]['_nx_name'] for x in list(range(len(ism)))]
                     isom_map = {W_nodes[i]: subg_nodes[i] for i in range(len(subg_nodes))}
                     S = self.G.subgraph(subg_nodes)
