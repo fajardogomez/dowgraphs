@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Nov  6 08:58:34 2018
-
-@author: lina_
-"""
 import string
 
 # Double Occurrence Words
