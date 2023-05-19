@@ -57,8 +57,10 @@ class PCELL():
         # kwargs.setdefault('node_size',60)
         if mode=='light':
             mdcolor = 'black'
+            face = 'white'
         elif mode=='dark':
             mdcolor = 'white'
+            face = '0E1117'
         nodes = dict(G.nodes(data=True))
         if len(nodes) == 0:
             layer_by = 'length'
@@ -148,6 +150,7 @@ class PCELL():
         ax = plt.gca()
         ax.invert_yaxis()
         ax.set_axis_off()
+        ax.set_facecolor(face)
 
         plt.show()
         fig = plt.gcf()
