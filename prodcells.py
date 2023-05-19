@@ -150,10 +150,10 @@ class PCELL():
         ax = plt.gca()
         ax.invert_yaxis()
         ax.set_axis_off()
+        ax.patch.set_facecolor(face)
         
         plt.show()
         fig = plt.gcf()
-        fig.figure(facecolor='face')
         
         return fig, G
 
