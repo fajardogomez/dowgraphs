@@ -1,15 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Mar 26 15:26:56 2019
-
-@author: lina_
-"""
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Mar 26 15:26:56 2019
-
-@author: lina_
-"""
 import networkx as nx
 
 from dow import DOW
