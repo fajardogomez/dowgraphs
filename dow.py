@@ -305,7 +305,8 @@ def getdows(n):
                     newword.insert(i,1)
                     newwords.append(newword)
             words = newwords
-        return words
+    ret = [','.join([str(y) for y in x]) for x in words]
+    return ret
 
 def list_duplicates_of(seq,item):
     """Lists duplicate indices of instances of item in the list seq"""
