@@ -29,7 +29,7 @@ class PCELL():
         return fig, G
 
     @classmethod
-    def draw_directed_graph(cls, G, **kwargs):
+    def draw_directed_graph(cls, G, mode='light', **kwargs):
         """
         Draws the graph and saves it in .png, .svg and .eps formats
 
