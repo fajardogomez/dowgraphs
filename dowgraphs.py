@@ -127,7 +127,8 @@ def redraw_dow():
     with col1:
         fig, G = wordgraph.draw(node_color=ncolor,node_size=nsize, angle=langle,
                                 layer_by=layer_choice, mode=md) 
-        st.pyplot(fig)
+        #st.pyplot(fig)
+        svg_write(fig)
         filename = dow + ".svg" 
         
         fig.savefig(filename, transparent=True, bbox_inches='tight',pad_inches=0, facecolor=face)
@@ -143,7 +144,8 @@ def draw_dow():
     with col1:
         fig, G = wordgraph.draw(node_color=ncolor,node_size=nsize, angle=langle,
                                 layer_by=layer_choice, mode =md) 
-        st.pyplot(fig)
+        #st.pyplot(fig)
+        svg_write(fig)
         filename = dow + ".svg" 
         
         fig.savefig(filename, transparent=True, bbox_inches='tight',pad_inches=0, facecolor=face)
@@ -179,7 +181,8 @@ with col1:
         fig, G = wordgraph.draw(node_color=ncolor,node_size=nsize, angle=langle, mode=md,
                                 layer_by=layer_choice)        
 
-        st.pyplot(fig)
+        #st.pyplot(fig)
+        svg_write(fig)
         filename = dow + ".svg" 
         
         fig.savefig(filename, transparent=True, bbox_inches='tight',pad_inches=0, facecolor=face)
